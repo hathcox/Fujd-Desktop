@@ -1,5 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
+'''
+Created on Mar 15, 2012
+
+@author: moloch
 
  Copyright [2012] [Redacted Labs]
 
@@ -14,11 +16,12 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+'''
+import tornado
 
--------
-"""
-from modules.Chef import Chef
+class DefaultHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        self.render("../templates/main.html")
 
-def bootstrap(project_name):
-	chef = Chef(project_name)
-	chef.bootstrap()
+    def post(self, *args, **kwargs):
+    	self.render("../templates/main.html")

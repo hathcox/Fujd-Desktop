@@ -19,18 +19,17 @@
 """
 import tornado.web
 from tornado.web import Application
+from tornado.web import StaticFileHandler 
 from os import urandom, path
 from base64 import b64encode
-
-class DefaultHandler(tornado.web.RequestHandler):
-    def get(self, *args, **kwargs):
-        self.write("Hello, {{project_name}}")
-
-    def post(self, *args, **kwargs):
-    	self.write("Hello, {{project_name}}")
+from handlers.BaseHandler import DefaultHandler
 
 application = Application([
-	(r'/(.*)', DefaultHandler)
+        #Static Handlers - Serves static CSS, JavaScript and image files
+        (r'/static/(.*)', StaticFileHandler, {'path': 'static'}),
+      
+        #This is the Default Handler generated for you!
+      	(r'/(.*)', DefaultHandler)
 ],
                           
     # Randomly generated secret key
@@ -45,5 +44,9 @@ application = Application([
 
 # Main entry point
 def start_game():
-	application.listen(8888)
-	tornado.ioloop.IOLoop.instance().start()
+     try:
+          application.listen(8888)
+          tornado.ioloop.IOLoop.instance().start()
+
+     except KeyboardInterrupt:
+          print "Shutting Down!"
