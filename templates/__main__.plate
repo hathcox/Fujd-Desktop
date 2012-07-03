@@ -1,0 +1,12 @@
+from sys import argv
+
+def serve():
+    """
+    serves the application
+    ----------------------
+    """
+    print "Welcome to {{ project_name }}!"
+
+options = ['serve']
+if argv[1] in options:
+    eval(argv[1])()
