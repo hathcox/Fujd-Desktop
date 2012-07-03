@@ -17,9 +17,18 @@
 
 -------
 """
-from tornado.template import Loader
-from modules.Chef import Chef
 
-def bootstrap(project_name):
-	chef = Chef(project_name)
-	chef.bootstrap()
+from sys import argv
+from handlers import start_game
+
+def serve():
+    """
+    serves the application
+    ----------------------
+    """
+    print "Now starting {{ project_name }}!"
+    start_game()
+
+options = ['serve']
+if argv[1] in options:
+    eval(argv[1])()

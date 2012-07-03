@@ -41,7 +41,6 @@ def cook(argv):
 		if not os.path.exists('Test'):
 		    os.makedirs('Test')
 		    bootstrap('Test')
-	pass
 
 
 #----- Entry Point
