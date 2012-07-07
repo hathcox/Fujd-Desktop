@@ -17,12 +17,19 @@
 
 -------
 """
+import logging
 import tornado.web
 from tornado.web import Application
 from tornado.web import StaticFileHandler 
 from os import urandom, path
 from base64 import b64encode
 from handlers.BaseHandler import DefaultHandler
+
+logging.basicConfig(format = '[%(levelname)s] %(asctime)s - %(message)s', level = logging.DEBUG)
+
+fileLogger = logging.FileHandler(filename = '{{project_name}}.log')
+fileLogger.setLevel(logging.DEBUG)
+logging.getLogger('').addHandler(fileLogger)
 
 application = Application([
         #Static Handlers - Serves static CSS, JavaScript and image files
@@ -31,7 +38,10 @@ application = Application([
         #This is the Default Handler generated for you!
       	(r'/(.*)', DefaultHandler)
 ],
-                          
+
+    # Template directory
+    template_path = 'templates',
+
     # Randomly generated secret key
     cookie_secret = b64encode(urandom(64)),
 

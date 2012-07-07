@@ -1,26 +1,74 @@
 # -*- coding: utf-8 -*-
 """
+Copyright [2012] [Redacted Labs]
 
- Copyright [2012] [Redacted Labs]
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   http://www.apache.org/licenses/LICENSE-2.0
 
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -------
 """
 #Imports
 import os
+import logging
 from sys import argv
 from modules import bootstrap
+from libs.ConfigManager import ConfigManager
+
+#Fujd version
+version = "0.0.1"
+
+#Setup logging
+logging.basicConfig(format = '[%(levelname)s] %(asctime)s - %(message)s', level = logging.DEBUG)
+
+#Load config file
+cfg_path = os.path.abspath(".fujd.cfg")
+if not (os.path.exists(cfg_path) and os.path.isfile(cfg_path)):
+    logging.error("No configuration file found at %s, please create one" % cfg_path)
+    os._exit(1)
+config = ConfigManager.Instance()
+
+'''
+This is used to locate fujd projects that exist
+in the current working directory
+'''
+def __find_local_project__():
+    outputList = []
+    for root, dirs, files in os.walk(os.getcwd()):
+        for f in files:
+            if(f == '.fujd'):
+                outputList.append('/'.join([root]))
+    return outputList
+
+'''
+This is used to select a project from all found projects 
+in the bake command
+'''
+def __select_project__(projects):
+	#If we have multiple projects
+	if(len(projects) > 1):
+		print("Please Select a Project:")
+	#If there is only one project
+	else:
+		return projects[0]
+
+def __bake_banner__():
+	print "[1] Add Handler"
+
+'''
+This is the function that starts the interactive bake sequence and
+allows for simply adding items to a project
+'''
+def __interactive_bake__():
+	print "Welcome to Interactive Bake!"
+	__bake_banner__()
 
 ''' 
 	This is the most basic command of Fujd. This will 
@@ -42,10 +90,27 @@ def cook(argv):
 		    os.makedirs('Test')
 		    bootstrap('Test')
 
+'''
+This is used on an already created file to add new 
+handlers / views / models / moduels / templates
+
+You can either specify each argument over the command line,
+or simple call bake and an interactive prompt will walk you through it
+'''
+def bake(argv):
+	projects = __find_local_project__()
+	logging.debug("Found Projects: %s" % projects)
+	project = __select_project__(projects)
+	logging.debug("Selected Project [%s]" % project)
+	if(len(argv) > 2):
+		pass
+	else:
+		#Start interactive prompt
+		__interactive_bake__()
 
 #----- Entry Point
 options = ['cook', 'clean', 'bake']
 if argv[1] in options:
     eval(argv[1])(argv)
 else:
-    print(ConsoleColors.WARN+'Error: PEBKAC')
+    logging.debug('Error: PEBKAC')

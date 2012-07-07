@@ -17,11 +17,11 @@ Created on Mar 15, 2012
    See the License for the specific language governing permissions and
    limitations under the License.
 '''
-import tornado
+from tornado.web import RequestHandler
 
-class DefaultHandler(tornado.web.RequestHandler):
+class DefaultHandler(RequestHandler):
     def get(self, *args, **kwargs):
-        self.render("../templates/main.html")
+        self.render("main.html")
 
     def post(self, *args, **kwargs):
-    	self.render("../templates/main.html")
+    	self.render("main.html")

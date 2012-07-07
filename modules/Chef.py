@@ -17,11 +17,11 @@
 
 -------
 """
-
+import logging
 import os
 import shutil
 from tornado.template import Loader
-
+from libs.ConfigManager import ConfigManager
 '''
 This class is used to bootstrap a project and
 cook all of the initial files
@@ -54,6 +54,7 @@ class Chef():
 		self.create_folders()
 		self.create_files()
 		self.copy_static_files()
+		self.create_project_file()
 
 	def project_sub_directory(self, directory_name):
 		return os.path.join(os.getcwd(), self.project_name, directory_name)
@@ -62,13 +63,13 @@ class Chef():
 		shutil.copytree(os.path.join('templates', 'static', 'css'), os.path.join(os.getcwd(), self.project_name, 'static', 'css'))
 		shutil.copytree(os.path.join('templates', 'static', 'img'), os.path.join(os.getcwd(), self.project_name, 'static', 'img'))
 		shutil.copytree(os.path.join('templates', 'static', 'js'), os.path.join(os.getcwd(), self.project_name, 'static', 'js'))
-		print "[*] Finished copying static files to project", self.project_name
+		logging.debug("[*] Finished copying static files to project" + self.project_name)
 
 	def create_folders(self):
 		for folder in self.folders:
 			if not os.path.exists(self.project_sub_directory(folder)):
 			    os.makedirs(self.project_sub_directory(folder))
-		print '[*] Finished creating all project folders!'
+		logging.debug('[*] Finished creating all project folders!')
 
 	def create_files(self):
 		self.loader = Loader(os.path.join(os.getcwd(),"templates"))
@@ -77,5 +78,10 @@ class Chef():
 			temp_file = open(os.path.join(os.getcwd(), self.project_name, file_name), 'w')
 			temp_file.write(self.loader.load(template+".plate").generate(project_name=self.project_name))
 			temp_file.close()
-			print "[*] Finished generating", template, "Template!" 
+			logging.debug("[*] Finished generating " + template + " Template!") 
 
+	def create_project_file(self):
+		project_file = open(os.path.join(os.getcwd(), self.project_name, '.fujd'), 'w')
+		project_file.write(ConfigManager.Instance().version)
+		project_file.close()
+		logging.debug("[*] Finished generating project file!")
