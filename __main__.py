@@ -19,7 +19,7 @@ limitations under the License.
 import os
 import logging
 from sys import argv
-from modules import bootstrap
+from modules import bootstrap, start_bake
 from libs.ConfigManager import ConfigManager
 
 #Fujd version
@@ -59,17 +59,6 @@ def __select_project__(projects):
 	else:
 		return projects[0]
 
-def __bake_banner__():
-	print "[1] Add Handler"
-
-'''
-This is the function that starts the interactive bake sequence and
-allows for simply adding items to a project
-'''
-def __interactive_bake__():
-	print "Welcome to Interactive Bake!"
-	__bake_banner__()
-
 ''' 
 	This is the most basic command of Fujd. This will 
 	generate all of the folder structures, and create
@@ -106,7 +95,7 @@ def bake(argv):
 		pass
 	else:
 		#Start interactive prompt
-		__interactive_bake__()
+		start_bake(project, argv)
 
 #----- Entry Point
 options = ['cook', 'clean', 'bake']

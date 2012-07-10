@@ -17,14 +17,18 @@
 
 -------
 """
-from modules.Chef import Chef
-from modules.BakeHelper import BakeHelper
+import os
 
-def bootstrap(project_name):
-	chef = Chef(project_name)
-	chef.bootstrap()
+class ProjectHelper():
 
-def start_bake(project, args, interactive = True):
-  bakeHelper = BakeHelper(project)
-  if interactive == True:
-    bakeHelper.start_interactive_bake()
+	def __init__(self, project_folder):
+		self.project = project_folder
+
+	def get_handler_folder(self):
+		return os.path.join(self.project, 'handlers')
+
+	def get_handler_init(self, mode):
+		return open(os.path.join(self.project, 'handlers', '__init__.py'), mode)
+
+	def get_template_folder(self):
+		return os.path.join(self.project, 'templates')

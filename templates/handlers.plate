@@ -24,6 +24,8 @@ from tornado.web import StaticFileHandler
 from os import urandom, path
 from base64 import b64encode
 from handlers.BaseHandler import DefaultHandler
+#Don't remove this comment, this is used as a pointhook to magically generate more handlers
+#HANDLER_IMPORT_POINT_HOOK
 
 logging.basicConfig(format = '[%(levelname)s] %(asctime)s - %(message)s', level = logging.DEBUG)
 
@@ -32,6 +34,9 @@ fileLogger.setLevel(logging.DEBUG)
 logging.getLogger('').addHandler(fileLogger)
 
 application = Application([
+        #Don't remove this comment, this is used as a pointhook to magically generate more handlers
+        #HANDLER_APPLICATION_POINT_HOOK
+
         #Static Handlers - Serves static CSS, JavaScript and image files
         (r'/static/(.*)', StaticFileHandler, {'path': 'static'}),
       

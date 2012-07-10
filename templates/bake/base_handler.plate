@@ -1,5 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
+'''
+Created on Mar 15, 2012
+
+@author: hathcox
 
  Copyright [2012] [Redacted Labs]
 
@@ -14,17 +16,12 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+'''
+from tornado.web import RequestHandler
 
--------
-"""
-from modules.Chef import Chef
-from modules.BakeHelper import BakeHelper
+class {{handler_name}}Handler(RequestHandler):
+    def get(self, *args, **kwargs):
+        self.render("main.html")
 
-def bootstrap(project_name):
-	chef = Chef(project_name)
-	chef.bootstrap()
-
-def start_bake(project, args, interactive = True):
-  bakeHelper = BakeHelper(project)
-  if interactive == True:
-    bakeHelper.start_interactive_bake()
+    def post(self, *args, **kwargs):
+    	self.render("main.html")
