@@ -37,10 +37,8 @@ class ConfigManager(object):
         self.config.readfp(open(self.cfg_path, 'r'))
         self.__version__()
 
-    '''
-    Creates the basic config file is it doesn't already exist
-    '''
     def create(self):
+         ''' Creates the basic config file is it doesn't already exist '''
         pass
 
     def __version__(self):

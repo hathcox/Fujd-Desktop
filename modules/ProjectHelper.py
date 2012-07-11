@@ -20,7 +20,8 @@
 import os
 
 class ProjectHelper():
-
+  ''' This is used to clean up grabing file handles to certain files in our project '''
+  
 	def __init__(self, project_folder):
 		self.project = project_folder
 

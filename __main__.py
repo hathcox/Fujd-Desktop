@@ -35,11 +35,10 @@ if not (os.path.exists(cfg_path) and os.path.isfile(cfg_path)):
     os._exit(1)
 config = ConfigManager.Instance()
 
-'''
-This is used to locate fujd projects that exist
-in the current working directory
-'''
+
 def __find_local_project__():
+	''' This is used to locate fujd projects that exist
+	in the current working directory'''
     outputList = []
     for root, dirs, files in os.walk(os.getcwd()):
         for f in files:
@@ -47,11 +46,9 @@ def __find_local_project__():
                 outputList.append('/'.join([root]))
     return outputList
 
-'''
-This is used to select a project from all found projects 
-in the bake command
-'''
 def __select_project__(projects):
+	''' This is used to select a project from all found projects 
+	in the bake command '''
 	#If we have multiple projects
 	if(len(projects) > 1):
 		print("Please Select a Project:")
@@ -59,15 +56,15 @@ def __select_project__(projects):
 	else:
 		return projects[0]
 
-''' 
+def cook(argv):
+	''' 
 	This is the most basic command of Fujd. This will 
 	generate all of the folder structures, and create
 	some base doccuments.
 
 	The argument passed after cook is the name of the 
 	project that will be created. This defaults to Test
-'''
-def cook(argv):
+	'''
 	if(len(argv) > 2):
 		#Attempt to create thier new project directory
 		if not os.path.exists(argv[2]):
@@ -79,14 +76,14 @@ def cook(argv):
 		    os.makedirs('Test')
 		    bootstrap('Test')
 
-'''
-This is used on an already created file to add new 
-handlers / views / models / moduels / templates
-
-You can either specify each argument over the command line,
-or simple call bake and an interactive prompt will walk you through it
-'''
 def bake(argv):
+	'''
+	This is used on an already created file to add new 
+	handlers / views / models / moduels / templates
+
+	You can either specify each argument over the command line,
+	or simple call bake and an interactive prompt will walk you through it
+	'''
 	projects = __find_local_project__()
 	logging.debug("Found Projects: %s" % projects)
 	project = __select_project__(projects)

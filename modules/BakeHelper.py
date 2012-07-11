@@ -22,9 +22,7 @@ from tornado.template import Loader
 import os, logging, mmap
 
 class BakeHelper():
-	'''
-	This is the helper class to assist with the baking process.
-	'''
+	''' This is the helper class to assist with the baking process. '''
 	
 	def __init__(self, project):
 		self.project = project

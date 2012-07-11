@@ -22,12 +22,11 @@ import os
 import shutil
 from tornado.template import Loader
 from libs.ConfigManager import ConfigManager
-'''
-This class is used to bootstrap a project and
-cook all of the initial files
-'''
-class Chef():
 
+class Chef():
+''' This class is used to bootstrap a project and
+		cook all of the initial files'''
+	
 	def __init__(self, project_name=None):
 		self.project_name = project_name
 		#This contains all of the folders that will be created in bootstrap
