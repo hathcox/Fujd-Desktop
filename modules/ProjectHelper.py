@@ -20,16 +20,16 @@
 import os
 
 class ProjectHelper():
-  ''' This is used to clean up grabing file handles to certain files in our project '''
+    ''' This is used to clean up grabing file handles to certain files in our project '''
   
-	def __init__(self, project_folder):
-		self.project = project_folder
+    def __init__(self, project_folder):
+        self.project = project_folder
 
-	def get_handler_folder(self):
-		return os.path.join(self.project, 'handlers')
+    def get_handler_folder(self):
+        return os.path.join(self.project, 'handlers')
 
-	def get_handler_init(self, mode):
-		return open(os.path.join(self.project, 'handlers', '__init__.py'), mode)
+    def get_handler_init(self, mode):
+        return open(os.path.join(self.project, 'handlers', '__init__.py'), mode)
 
-	def get_template_folder(self):
-		return os.path.join(self.project, 'templates')
+    def get_template_folder(self):
+        return os.path.join(self.project, 'templates')

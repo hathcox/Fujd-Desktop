@@ -38,7 +38,7 @@ class ConfigManager(object):
         self.__version__()
 
     def create(self):
-         ''' Creates the basic config file is it doesn't already exist '''
+        ''' Creates the basic config file is it doesn't already exist '''
         pass
 
     def __version__(self):

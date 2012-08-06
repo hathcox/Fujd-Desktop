@@ -37,8 +37,8 @@ config = ConfigManager.Instance()
 
 
 def __find_local_project__():
-	''' This is used to locate fujd projects that exist
-	in the current working directory'''
+    ''' This is used to locate fujd projects that exist
+    in the current working directory'''
     outputList = []
     for root, dirs, files in os.walk(os.getcwd()):
         for f in files:
@@ -47,52 +47,52 @@ def __find_local_project__():
     return outputList
 
 def __select_project__(projects):
-	''' This is used to select a project from all found projects 
-	in the bake command '''
-	#If we have multiple projects
-	if(len(projects) > 1):
-		print("Please Select a Project:")
-	#If there is only one project
-	else:
-		return projects[0]
+    ''' This is used to select a project from all found projects 
+    in the bake command '''
+    #If we have multiple projects
+    if(len(projects) > 1):
+        print("Please Select a Project:")
+    #If there is only one project
+    else:
+        return projects[0]
 
 def cook(argv):
-	''' 
-	This is the most basic command of Fujd. This will 
-	generate all of the folder structures, and create
-	some base doccuments.
+    ''' 
+    This is the most basic command of Fujd. This will 
+    generate all of the folder structures, and create
+    some base doccuments.
 
-	The argument passed after cook is the name of the 
-	project that will be created. This defaults to Test
-	'''
-	if(len(argv) > 2):
-		#Attempt to create thier new project directory
-		if not os.path.exists(argv[2]):
-		    os.makedirs(argv[2])
-		    bootstrap(argv[2])
-	else:
-		#Make the default directory
-		if not os.path.exists('Test'):
-		    os.makedirs('Test')
-		    bootstrap('Test')
+    The argument passed after cook is the name of the 
+    project that will be created. This defaults to Test
+    '''
+    if(len(argv) > 2):
+        #Attempt to create thier new project directory
+        if not os.path.exists(argv[2]):
+            os.makedirs(argv[2])
+            bootstrap(argv[2])
+    else:
+        #Make the default directory
+        if not os.path.exists('Test'):
+            os.makedirs('Test')
+            bootstrap('Test')
 
 def bake(argv):
-	'''
-	This is used on an already created file to add new 
-	handlers / views / models / moduels / templates
+    '''
+    This is used on an already created file to add new 
+    handlers / views / models / moduels / templates
 
-	You can either specify each argument over the command line,
-	or simple call bake and an interactive prompt will walk you through it
-	'''
-	projects = __find_local_project__()
-	logging.debug("Found Projects: %s" % projects)
-	project = __select_project__(projects)
-	logging.debug("Selected Project [%s]" % project)
-	if(len(argv) > 2):
-		pass
-	else:
-		#Start interactive prompt
-		start_bake(project, argv)
+    You can either specify each argument over the command line,
+    or simple call bake and an interactive prompt will walk you through it
+    '''
+    projects = __find_local_project__()
+    logging.debug("Found Projects: %s" % projects)
+    project = __select_project__(projects)
+    logging.debug("Selected Project [%s]" % project)
+    if(len(argv) > 2):
+        pass
+    else:
+        #Start interactive prompt
+        start_bake(project, argv)
 
 #----- Entry Point
 options = ['cook', 'clean', 'bake']
