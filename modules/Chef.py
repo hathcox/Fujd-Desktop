@@ -54,6 +54,16 @@ class Chef():
         self.create_files()
         self.copy_static_files()
         self.create_project_file()
+        self.display_finished_banner()
+
+    def display_finished_banner(self):
+        print "[!]----------------------------------------------------------[!]"
+        print "       Project: "+self.project_name+" created succesfully!"
+        print "       --To Run:"
+        print "           cd "+self.project_name
+        print "           python . serve"
+        print "[!]----------------------------------------------------------[!]\n"
+
 
     def project_sub_directory(self, directory_name):
         return os.path.join(os.getcwd(), self.project_name, directory_name)

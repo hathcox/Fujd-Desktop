@@ -56,13 +56,13 @@ def __select_project__(projects):
     else:
         return projects[0]
 
-def cook(argv):
+def create(argv):
     ''' 
     This is the most basic command of Fujd. This will 
     generate all of the folder structures, and create
     some base doccuments.
 
-    The argument passed after cook is the name of the 
+    The argument passed after create is the name of the 
     project that will be created. This defaults to Test
     '''
     if(len(argv) > 2):
@@ -76,7 +76,7 @@ def cook(argv):
             os.makedirs('Test')
             bootstrap('Test')
 
-def bake(argv):
+def add(argv):
     '''
     This is used on an already created file to add new 
     handlers / views / models / moduels / templates
@@ -86,16 +86,19 @@ def bake(argv):
     '''
     projects = __find_local_project__()
     logging.debug("Found Projects: %s" % projects)
-    project = __select_project__(projects)
-    logging.debug("Selected Project [%s]" % project)
-    if(len(argv) > 2):
-        pass
+    if len(projects) > 0:
+        project = __select_project__(projects)
+        logging.debug("Selected Project [%s]" % project)
+        if(len(argv) > 2):
+            pass
+        else:
+            #Start interactive prompt
+            start_bake(project, argv)
     else:
-        #Start interactive prompt
-        start_bake(project, argv)
+        logging.debug("No FUJD projects found!")
 
 #----- Entry Point
-options = ['cook', 'clean', 'bake']
+options = ['create', 'clean', 'add']
 if argv[1] in options:
     eval(argv[1])(argv)
 else:

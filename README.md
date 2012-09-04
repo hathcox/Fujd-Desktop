@@ -7,11 +7,11 @@ Credits to teaspoon for its initial help with project structure
 
 Commands
 =========
-* Cook
+* Create
 	This is used to build an initial project, simple run with:
-	'python . cook PROJECT_NAME'
+	'python . create PROJECT_NAME'
 
-* Bake
+* Add
 	This is an interactive command that lets to add components to already created Fujd projects
 
 	To use simply run the following and an interactive wizard will start:
